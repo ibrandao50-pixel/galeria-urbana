@@ -1,0 +1,15 @@
+{
+  "name":"RUA — Galeria de Arte Urbana",
+  "short_name":"RUA",
+  "description":"Atlas vivo de arte urbana e impacto social.",
+  "lang":"pt-BR",
+  "start_url":"./index.html",
+  "scope":"./",
+  "display":"standalone",
+  "orientation":"any",
+  "background_color":"#f2efe7",
+  "theme_color":"#f2efe7",
+  "categories":["art","culture","travel"],
+  "icons":[{"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}],
+  "shortcuts":[{"name":"Explorar obras","url":"./index.html#galleryView"},{"name":"Abrir mapa","url":"./index.html#mapView"}]
+}
