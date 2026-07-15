@@ -1,5 +1,33 @@
-const CACHE='rua-v2';
-const CORE=['./','./index.html','./styles.css','./app.js','./sync.js','./pwa.js','./manifest.webmanifest','./assets/app-icon.svg','./assets/mural-raizes.png'];
-self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting())));
-self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
-self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request).then(response=>{const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy));return response}).catch(()=>event.request.mode==='navigate'?caches.match('./index.html'):undefined)))});
+# RUA — aplicativo multiplataforma
+
+O projeto funciona como PWA instalável em Android, iOS, Windows, macOS e Linux. Para que instalação, GPS e modo offline funcionem, abra-o por HTTPS ou por um servidor local; abrir `index.html` diretamente serve apenas para visualização.
+
+## Sincronização Supabase
+
+O aplicativo está conectado ao Supabase. Execute `supabase-setup.sql` no SQL Editor do projeto e crie o usuário curador em **Authentication > Users > Add user**. Visitantes podem consultar; somente usuários autenticados podem publicar e editar. Nunca coloque uma chave `service_role` no aplicativo.
+
+Se o banco já foi configurado com uma versão anterior, execute também `supabase-atualizacao-exclusao.sql` uma vez. Essa atualização permite apagar do Storage as fotografias vinculadas às obras excluídas.
+
+Para habilitar curtidas públicas sincronizadas, execute `supabase-atualizacao-curtidas.sql` uma vez. A publicação e edição continuam restritas a curadores autenticados pelas políticas do banco.
+
+## Executar localmente
+
+Com Node.js instalado:
+
+```sh
+npm install
+npm run serve
+```
+
+Acesse o endereço exibido e use **Instalar app**. No iPhone/iPad, use **Compartilhar → Adicionar à Tela de Início**.
+
+## Empacotar para Android e iOS
+
+```sh
+npm install
+npm run cap:android
+npm run cap:ios
+npm run cap:sync
+```
+
+Android requer Android Studio. A compilação para iOS requer macOS e Xcode. Antes de publicar, substitua a senha demonstrativa por autenticação segura em um servidor.

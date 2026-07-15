@@ -1,29 +1,11 @@
-# RUA — aplicativo multiplataforma
-
-O projeto funciona como PWA instalável em Android, iOS, Windows, macOS e Linux. Para que instalação, GPS e modo offline funcionem, abra-o por HTTPS ou por um servidor local; abrir `index.html` diretamente serve apenas para visualização.
-
-## Sincronização Supabase
-
-O aplicativo está conectado ao Supabase. Execute `supabase-setup.sql` no SQL Editor do projeto e crie o usuário curador em **Authentication > Users > Add user**. Visitantes podem consultar; somente usuários autenticados podem publicar e editar. Nunca coloque uma chave `service_role` no aplicativo.
-
-## Executar localmente
-
-Com Node.js instalado:
-
-```sh
-npm install
-npm run serve
-```
-
-Acesse o endereço exibido e use **Instalar app**. No iPhone/iPad, use **Compartilhar → Adicionar à Tela de Início**.
-
-## Empacotar para Android e iOS
-
-```sh
-npm install
-npm run cap:android
-npm run cap:ios
-npm run cap:sync
-```
-
-Android requer Android Studio. A compilação para iOS requer macOS e Xcode. Antes de publicar, substitua a senha demonstrativa por autenticação segura em um servidor.
+const manifest=document.createElement('link');manifest.rel='manifest';manifest.href='manifest.webmanifest';document.head.appendChild(manifest);
+const theme=document.createElement('meta');theme.name='theme-color';theme.content='#f2efe7';document.head.appendChild(theme);
+const apple=document.createElement('link');apple.rel='apple-touch-icon';apple.href='assets/app-icon.svg';document.head.appendChild(apple);
+let installPrompt;
+const installButton=document.createElement('button');installButton.className='install-app hidden';installButton.textContent='↓ Instalar app';document.querySelector('.header-actions').prepend(installButton);
+window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;installButton.classList.remove('hidden')});
+installButton.addEventListener('click',async()=>{if(!installPrompt)return;installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;installButton.classList.add('hidden')});
+window.addEventListener('appinstalled',()=>installButton.classList.add('hidden'));
+function updateOnlineStatus(){let badge=document.querySelector('.offline-badge');if(navigator.onLine){badge?.remove()}else if(!badge){badge=document.createElement('div');badge.className='offline-badge';badge.textContent='Modo offline — seu acervo continua disponível';document.body.appendChild(badge)}}
+window.addEventListener('online',updateOnlineStatus);window.addEventListener('offline',updateOnlineStatus);updateOnlineStatus();
+if('serviceWorker'in navigator&&location.protocol!=='file:')window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'));
