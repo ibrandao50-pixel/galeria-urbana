@@ -10,6 +10,10 @@ Se o banco já foi configurado com uma versão anterior, execute também `supaba
 
 Para habilitar curtidas públicas sincronizadas, execute `supabase-atualizacao-curtidas.sql` uma vez. A publicação e edição continuam restritas a curadores autenticados pelas políticas do banco.
 
+Execute também `supabase-atualizacao-curtidas-v2.sql` nas instalações existentes. Ele reforça uma única curtida por obra e navegador, mantém a leitura pública do contador e confirma a publicação Realtime. Trocar o nome de visitante não altera o identificador da curtida.
+
+As curtidas estão temporariamente ocultas por `FEATURES.likes=false` no início de `app.js`. O código e os dados permanecem preservados. Para reativar futuramente, altere somente esse valor para `true`.
+
 Por segurança, o modo curador exige e-mail e senha novamente a cada abertura do aplicativo. Sessões antigas não abrem diretamente o formulário de publicação.
 
 ## Executar localmente
