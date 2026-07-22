@@ -1,0 +1,20 @@
+{
+  "name": "rua-galeria-urbana",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Galeria de arte urbana RUA — web, PWA e Android",
+  "scripts": {
+    "web:prepare": "node scripts/prepare-web.mjs",
+    "serve": "npm run web:prepare && serve www",
+    "android:add": "npm run web:prepare && cap add android",
+    "android:sync": "npm run web:prepare && cap sync android",
+    "android:open": "npm run android:sync && cap open android",
+    "android:apk": "npm run android:sync && cd android && gradlew.bat assembleDebug"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/cli": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "serve": "^14.2.5"
+  }
+}
