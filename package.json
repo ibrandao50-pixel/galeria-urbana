@@ -1,15 +1,20 @@
 {
-  "name":"RUA — Galeria de Arte Urbana",
-  "short_name":"RUA",
-  "description":"Atlas vivo de arte urbana e impacto social.",
-  "lang":"pt-BR",
-  "start_url":"./index.html",
-  "scope":"./",
-  "display":"standalone",
-  "orientation":"any",
-  "background_color":"#f2efe7",
-  "theme_color":"#f2efe7",
-  "categories":["art","culture","travel"],
-  "icons":[{"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}],
-  "shortcuts":[{"name":"Explorar obras","url":"./index.html#galleryView"},{"name":"Abrir mapa","url":"./index.html#mapView"}]
+  "name": "rua-galeria-urbana",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Galeria de arte urbana RUA — web, PWA e Android",
+  "scripts": {
+    "web:prepare": "node scripts/prepare-web.mjs",
+    "serve": "npm run web:prepare && serve www",
+    "android:add": "npm run web:prepare && cap add android",
+    "android:sync": "npm run web:prepare && cap sync android",
+    "android:open": "npm run android:sync && cap open android",
+    "android:apk": "npm run android:sync && cd android && gradlew.bat assembleDebug"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/cli": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "serve": "^14.2.5"
+  }
 }
