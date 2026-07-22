@@ -1,8 +1,0 @@
-{
-  "appId": "com.galeria.rua",
-  "appName": "RUA",
-  "webDir": "www",
-  "server": {
-    "androidScheme": "https"
-  }
-}
