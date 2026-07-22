@@ -16,6 +16,10 @@ As curtidas estão temporariamente ocultas por `FEATURES.likes=false` no início
 
 Por segurança, o modo curador exige e-mail e senha novamente a cada abertura do aplicativo. Sessões antigas não abrem diretamente o formulário de publicação.
 
+Durante uma sessão administrativa, o cabeçalho exibe **Sair do modo curador**. Essa ação encerra a autenticação e oculta imediatamente todos os controles de publicação, edição e exclusão.
+
+Execute `supabase-atualizacao-editor-site.sql` para habilitar **Editar site** no modo curador. O editor controla a abertura, imagem principal, título do acervo e seção Sobre, com sincronização pública em tempo real.
+
 ## Executar localmente
 
 Com Node.js instalado:
